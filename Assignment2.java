@@ -1,7 +1,10 @@
- import java.util.Scanner;
+ import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
 
 public class Assignment2 {
 	private static short state = 0;
+	private ArrayList item;
 	//state == -1 puts you out of the loop
 	//state == 0 is default state
 	//state == 1 is buying an item online or reserving an item
