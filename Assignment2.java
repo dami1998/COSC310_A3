@@ -1,4 +1,6 @@
+
 import java.util.Scanner;
+
 
 public class Assignment2 {
 	private static short state = 0;
