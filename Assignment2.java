@@ -1,5 +1,4 @@
-package package1; 
-import java.util.Scanner;
+ import java.util.Scanner;
 
 public class Assignment2 {
 	private static short state = 0;
