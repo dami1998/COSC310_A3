@@ -1,4 +1,4 @@
-package package1; 
+
 import java.util.Scanner;
 
 public class Assignment2 {
@@ -9,7 +9,8 @@ public class Assignment2 {
 	//state == 2 is notify by email
 	//state == 3 is purchase online
 	public static void main(String[] args) {
-		System.out.println("Hello, this is *** shopping center customer service, how are you today?");
+		System.out.print("Hello there, ");
+		System.out.print(Response.respond(state));
 		do {
 			System.out.println(respond());
 		}while(state != -1);
@@ -90,4 +91,5 @@ public class Assignment2 {
 		}
 		return "Sorry, I do not understand what you want me to do. Can you say it once more?";
 	}
+	
 }
