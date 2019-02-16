@@ -1,7 +1,7 @@
 
 public class item {
 	private String[] clothesItem = new String[5];
-	private String[][] keyword = new String[5][5];
+	String[][] keyword = new String[5][5];
 	private boolean initialized = false;
 	public void initialize() {
 		if(!initialized) {
@@ -19,9 +19,17 @@ public class item {
 			keyword[0][1]="nevermind";
 			keyword[0][2]="bye";
 			keyword[0][3]="that is all";
-			keyword[1][0]="buy";
-			keyword[1][1]="looking for";
-			keyword[1][2]="";
+			
+			//no keyword for state 0
+			
+			keyword[2][0]="buy";
+			keyword[2][1]="looking for";
+			keyword[2][2]="any";
+			keyword[2][3]="finding";
+			keyword[2][4]="in stock";
+			
+			
+			keyword[3][0]="online";
 			initialized = true;
 		}
 		
@@ -36,8 +44,16 @@ public class item {
 		return false;
 	}
 	public int key(String question) {
-		if(question.contains("looking for")||question.contains("there any"))
-			return 1;
+		for(int i = 0; i < keyword.length;i++)
+		{
+			for(int j = 0; j < keyword[i].length;j++)
+			{
+				if(question.contains(keyword[i][j]))
+				{
+					return i-1;
+				}
+			}
+		}
 		return -1;
 	}
 	
