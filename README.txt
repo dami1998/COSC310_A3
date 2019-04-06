@@ -6,4 +6,20 @@ RESPONSE CLASS
 This class is responsible for making the right response based on the current state of the conversation.
 FINDSTATE CLASS
 This class creates the flow of the conversation by determining the state of the current situation.
- 
+CHAT_SERVER CLASS
+This is  where  the agent will be receiving the information/messages from the client
+CHAT_CLIENT CLASS
+This ios where the client will  be receiving the information/messages from the agent
+CHATBOT CLASS
+This  is where the GUI lies.
+FEATURES OF THIS PROGRAM
+1) track orders
+
+2) Can give store  locations and time
+
+3) Can  give the the user  the option to talk to an agent directly
+
+4)Can reserve item
+
+5) cancel an order
+

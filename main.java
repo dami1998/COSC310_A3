@@ -1,11 +1,20 @@
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Scanner;
+
 
 public class main {
 	private static short state = 0;
 	private static short backupState = 0;
-	private static String options = "- Looking for items \n- Show business hours and location \n- Tracking or cancel orders \n- Rate and leave comments";
-	
+	private static String options = "- Looking for items \n- Looking for a vehicle \n- Show business hours and location \n- Tracking or cancel orders \n- Rate and leave comments";
+	static ServerSocket ss;
+	static Socket s;
+	static DataInputStream din;
+	static DataOutputStream dout;
 	
 	// A 2D array of keywords/phrases to detect actions for each states.
 	private static String[][] keyword = { { "search", "get", "item", "looking for" }, // Goes from 0 to 1
@@ -25,6 +34,8 @@ public class main {
 	// An array storing generic clothing items
 	public static String[] clothingItems = { "t-shirt", "pants", "jeans", "jacket", "gloves", "shirt", "socks",
 			"sneakers", "boots", "cap", "sweater", "belt", "coat" };
+	//an array storing vehicle types
+	public static String[] vehicle = {"cars", "jeeps", "trucks"};
 	// Business times and location
 	public static String info = "\nLocation: 123 J.Doe Street, Kelowna\n" + "Sun: Closed\n" + "Mon: 10 AM to 8 PM\n"
 			+ "Tue: 10 AM to 8 PM\n" + "Wed: 10 AM to 8 PM\n" + "Thu: 10 AM to 8 PM\n" + "Fri: 10 AM to 9 PM\n"
@@ -65,20 +76,52 @@ public class main {
 	// state == 19 is unacknowledged action
 	// state == 20 puts you out of the loop (end)
 
-	public static void main(String[] args) {
-		System.out.println("Hello there, welcome to SuperWet online customer service. How may I help you today?");
-		System.out.println(options);
-		do {
-			respond();
-		} while (state != 20);
-	}
+	
+	
+	public static void main(String[] args)  {
+		new Thread(new Runnable()) {
+			public void run() {
+		
+		try {
+			
+			ss = new ServerSocket(1204);
+			s= ss.accept();
+			
+			din = new DataInputStream(s.getInputStream());
+			dout = new DataOutputStream(s.getOutputStream());
+			String input = din.readUTF();
+			dout.writeUTF("Hello there, welcome to SuperWet online customer service. How may I help you today?");
+			dout.writeUTF(options);
+			while(true) { 
+				boolean stop = false;
+				input = din.readUTF();
+				for (int i = 0;  i < keywordLen(12); i++) {
+					if(input.contains(getKeyWord(12,i))) {
+						s.close();
+						stop = true;
+						break;
+					}
+				}
+				}
+			if(!stop)
+				output.writeUTF(respond(input));
+			else
+				break;
+		}catch(Exception e){
+			e.printStackTrace();
+			}
+	
+		
+		
+		 
+	}).start();
+		}
+		
 
-	public static void respond() {
-		Scanner in = new Scanner(System.in);
-		String input = in.nextLine();
-		state = findstate.findState(input);
-		String output = response.findResponse(input);
-		System.out.println(output);
+	public static String respond(String str) {
+		state = findstate.findState(str);
+		String output = response.findResponse(str);
+		return output;
 			
 	}
 	
